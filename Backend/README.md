@@ -305,7 +305,61 @@ This endpoint is used to register a new user in the system. It validates input d
 - •	Returns both the token and user data in the response.
 
 
+## 📘 User Routes Documentation
 
+### 🔐 Authentication Required
+All the following routes require the user to be authenticated via a valid JWT token. The token should be passed either as an HTTP-only cookie or in the `Authorization` header as a Bearer token.
 
+---
 
+### 📍 GET `/users/profile`
 
+#### ✅ Description:
+Returns the profile information of the currently authenticated user.
+
+#### 🔑 Authentication:
+- Required
+
+#### 🧾 Headers:
+- `Authorization: Bearer <token>` *(optional if token is stored in HTTP-only cookie)*
+
+#### 📦 Response:
+- **200 OK**
+```json
+{
+  "user": {
+    "_id": "123456789",
+    "firstname": "John",
+    "lastname": "Doe",
+    "email": "john@example.com",
+    // ...any other user fields
+  }
+}
+
+## GET /users/logout
+
+✅ Description:
+
+Logs out the currently authenticated user by:
+- •	Clearing the JWT token from cookies.
+	•	(Optionally) Blacklisting the token to prevent reuse.
+
+⸻
+
+🔐 Authentication Required: Yes
+
+⸻
+
+# 🧾 Headers (optional if using cookie-based token):
+
+🔄 Method: GET
+
+🌐 URL: /users/logout
+
+⸻
+
+📦 Success Response:
+	•	Status Code: 200 OK
+
+❌ Error Responses:
+	•	Status Code: 500 Internal Server Error
