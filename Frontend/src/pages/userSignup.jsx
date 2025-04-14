@@ -10,7 +10,7 @@ const UserSignup = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     const newUserData = {
-      UserName: {
+      fullName: {
         firstName,
         lastName,
       },
