@@ -35,3 +35,20 @@ module.exports.registerCaptain= async(req,res,next)=>{
 
    
 }
+
+module.exports.loginCaptain= async (res,req,next)=>{
+    const errors= validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(400).json({ errors: errors.array()});
+    }
+
+    const {email,password}= req.body;
+
+    const captain= await captainModel.findOne({email}).select('+password');
+    if(!captain){
+        return res.status(401).json({message: 'Invalid email or password'});
+    }
+    const token= captain.generateAuthToken();
+    res.cookie('token', token);
+    res.status(200).json({token, captain});
+}

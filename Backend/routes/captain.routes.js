@@ -20,5 +20,11 @@ const {body}= require('express-validator');
 
  captainController.registerCaptain
 )
+router.post('/login',[
+    body('email').isEmail().withMessage('Invalid Email'),
+    body('password').isLength({ min : 6}).withMessage('password must be atlest 6 character')
+],
+ captainController.loginCaptain
 
+)
 module.exports= router;
